@@ -23,7 +23,11 @@ def plot_loss_curves(history):
 
 
   # Plot accuracy
+  plt.figure()
   plt.plot(epochs, accuracy, label="training_accuracy")
   plt.plot(epochs, val_accuracy, label="val_accuracy")
   plt.title("accuracy")
   plt.xlabel("epochs")
+
+# Plot the training curve now
+plot_loss_curves(history_1) #history_1 is obtained while fitting the model
