@@ -31,3 +31,31 @@ def plot_loss_curves(history):
 
 # Plot the training curve now
 plot_loss_curves(history_1) #history_1 is obtained while fitting the model
+
+
+# Visualize our images
+# View random image (only 1)
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import random
+
+def view_random_image(target_dir, target_class):
+  # Setup the target directory (we will view images from here)
+  target_folder = target_dir+target_class
+
+  # Get the random image path
+  random_image = random.sample(os.listdir(target_folder), 1)
+  print(random_image)
+
+  # Read in the image and plot it using matplotlib
+  img = mpimg.imread(target_folder + "/" + random_image[0])
+  plt.imshow(img)
+  plt.title(target_class)
+  plt.axis("off")
+
+  print(f"Image shape: {img.shape}") # show the shape of the image
+
+  return img
+
+# View the random image from the training dataset
+img = view_random_image(target_dir="pizza_steak/train/", target_class="pizza")
