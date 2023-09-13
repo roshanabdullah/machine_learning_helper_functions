@@ -81,3 +81,26 @@ def load_and_prep_image(filename, img_shape=224):
 
 steak = load_and_prep_image("03-steak.jpeg")
 model_7.predict(tf.expand_dims(steak, axis=0))
+
+
+def pred_and_plot(model, filename, class_names=class_names):
+  """
+  Imports an image located at filename, makes a prediction with model and
+  plots the image with the predicted class as the title
+  """
+  # Import the target image and preprocess it
+  img = load_and_prep_image(filename)
+
+  # Make a prediction
+  pred = model.predict(tf.expand_dims(img, axis=0))
+
+  # Get the predicted class
+  pred_class = class_names[int(tf.round(pred))]
+
+  # Plot the image and the predicted class
+  plt.imshow(img)
+  plt.title(f"Prediction: {pred_class}")
+  plt.axis(False)
+
+# Test our model on the custom image
+pred_and_plot(model_7, "03-steak.jpeg")
