@@ -59,3 +59,25 @@ def view_random_image(target_dir, target_class):
 
 # View the random image from the training dataset
 img = view_random_image(target_dir="pizza_steak/train/", target_class="pizza")
+
+
+# Create a function to import and image and resize it to be able to be used with our model
+def load_and_prep_image(filename, img_shape=224):
+  """
+  Reads an image from filename, turns it into a tensor and reshapes it to (img_shape, img_shape, colour_channels)
+  """
+  # Read in the image
+  img = tf.io.read_file(filename)
+
+  # Decode the read file into tensor
+  img = tf.image.decode_image(img)
+
+  # Resize the image
+  img = tf.image.resize(img, size = [img_shape, img_shape])
+
+  # Rescale the image (get all the values between 0 and 1)
+  img = img/255.
+  return img
+
+steak = load_and_prep_image("03-steak.jpeg")
+model_7.predict(tf.expand_dims(steak, axis=0))
