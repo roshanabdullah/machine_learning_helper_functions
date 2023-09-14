@@ -82,7 +82,7 @@ def load_and_prep_image(filename, img_shape=224):
 steak = load_and_prep_image("03-steak.jpeg")
 model_7.predict(tf.expand_dims(steak, axis=0))
 
-
+# below is for binary classification
 def pred_and_plot(model, filename, class_names=class_names):
   """
   Imports an image located at filename, makes a prediction with model and
@@ -104,3 +104,26 @@ def pred_and_plot(model, filename, class_names=class_names):
 
 # Test our model on the custom image
 pred_and_plot(model_7, "03-steak.jpeg")
+
+# below is for multi classification 
+def pred_and_plot_multi(model, filename, class_names):
+  """
+  Imports an image located at filename, makes a prediction on it with
+  a trained model and plots the image with the predicted class as the title.
+  """
+  # Import the target image and preprocess it
+  img = load_and_prep_image(filename)
+
+  # Make a prediction
+  pred = model.predict(tf.expand_dims(img, axis=0))
+
+  if len(pred[0]) > 1:
+    pred_class = class_names[tf.argmax(pred)]
+  else:
+    pred_class = class_names[int(tf.round(pred))]
+
+  # Plot the image and predicted class
+  plt.imshow(img)
+  plt.title(f"Prediction: {pred_class}")
+  plt.axis(False);
+     
